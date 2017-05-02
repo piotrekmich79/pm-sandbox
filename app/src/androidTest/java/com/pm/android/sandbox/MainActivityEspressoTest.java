@@ -59,6 +59,19 @@ public class MainActivityEspressoTest {
         onView(withId(R.id.resultView)).check(matches(withText("NewText")));
     }
 
+    @Test
+    public void changeText_FailedTest() {
+        // Type text and then press the button.
+        onView(withId(R.id.inputField)).perform(typeText("NewText"),
+                closeSoftKeyboard());
+        reportHelper.label("myTestStepLabel_3_1");
+        onView(withId(R.id.switchActivity)).perform(click());
+
+        reportHelper.label("myTestStepLabel_3_2");
+        // This view is in a different Activity, no need to tell Espresso.
+        onView(withId(R.id.resultView)).check(matches(withText("errrrrrr")));
+    }
+
     @After
     public void TearDown(){
         reportHelper.label("Stopping App");
